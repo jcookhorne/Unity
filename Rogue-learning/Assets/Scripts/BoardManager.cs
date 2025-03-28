@@ -22,7 +22,7 @@ public class BoardManager : MonoBehaviour
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Init()
     {
         m_Tilemap = GetComponentInChildren<Tilemap>();
         m_Grid = GetComponentInChildren<Grid>();
@@ -52,7 +52,6 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        Player.Spawn(this, new Vector2Int(1, 1));
         
     }
 
