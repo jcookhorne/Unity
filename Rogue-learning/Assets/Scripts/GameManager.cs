@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public BoardManager boardManager;
     public PlayerController playerController;
+    private int m_FoodAmount = 100;
+    public UIDocument uiDocument;
+    private Label m_FoodLabel;
     public TurnManager turnManager { get; private set; }
     
 
@@ -21,13 +25,22 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         turnManager = new TurnManager();
+        turnManager.OnTick += OnTurnHappen;
         boardManager.Init();
+        m_FoodLabel = uiDocument.rootVisualElement.Q<Label>("FoodLabel");
+        m_FoodLabel.text = $"Food : {m_FoodAmount}";
 
 
         playerController.Spawn(boardManager, new Vector2Int(1, 1));
 
     }
 
+    void OnTurnHappen()
+    {
+        m_FoodAmount -= 1;
+        m_FoodLabel.text = $"Food : {m_FoodAmount}";
+        Debug.Log("Current amount of food : " + m_FoodAmount);
+    }
 
 
     // Update is called once per frame
