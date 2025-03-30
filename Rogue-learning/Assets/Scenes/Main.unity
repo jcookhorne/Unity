@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 20036351}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 4, z: -10}
+  m_LocalPosition: {x: 6, y: 6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -607,8 +607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520327169152853448ab303d22f66e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 8
-  height: 8
+  width: 12
+  height: 12
   GroundTiles:
   - {fileID: 11400000, guid: e85925ed17610604d8f607a89120182d, type: 2}
   - {fileID: 11400000, guid: aff4ea69f07fe7f45b8c3c6711594210, type: 2}
@@ -623,6 +623,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0941390cc57e1084a957dfd346969f31, type: 2}
   - {fileID: 11400000, guid: 5a1d8fec849f82e4595c0a6858229a6b, type: 2}
   Player: {fileID: 1368767885}
+  FoodPrefab: {fileID: 6932185883550504606, guid: 946d57298f46b4d4bb4b12e36db58d92, type: 3}
 --- !u!156049354 &1835064697
 Grid:
   m_ObjectHideFlags: 0
