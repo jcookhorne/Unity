@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -612,9 +612,6 @@ MonoBehaviour:
   GroundTiles:
   - {fileID: 11400000, guid: e85925ed17610604d8f607a89120182d, type: 2}
   - {fileID: 11400000, guid: aff4ea69f07fe7f45b8c3c6711594210, type: 2}
-  - {fileID: 11400000, guid: 896c2efaccb4133499bf255ac82e02f9, type: 2}
-  - {fileID: 11400000, guid: 4b8da08bdca0d674fbabc21137d2e639, type: 2}
-  - {fileID: 11400000, guid: 6951af6e727ba474690784de693243b6, type: 2}
   - {fileID: 11400000, guid: 2d4c2a639db06fe4b8eec9570a45143f, type: 2}
   - {fileID: 11400000, guid: b8e55ad040c20ea44a7397fdff4abb27, type: 2}
   - {fileID: 11400000, guid: aeb637580800b1c4a9589f778750457f, type: 2}
@@ -622,8 +619,14 @@ MonoBehaviour:
   WallTiles:
   - {fileID: 11400000, guid: 0941390cc57e1084a957dfd346969f31, type: 2}
   - {fileID: 11400000, guid: 5a1d8fec849f82e4595c0a6858229a6b, type: 2}
+  LeastFoodAmount: 3
+  MaxFoodAmount: 10
   Player: {fileID: 1368767885}
-  FoodPrefab: {fileID: 6932185883550504606, guid: 946d57298f46b4d4bb4b12e36db58d92, type: 3}
+  FoodPrefab:
+  - {fileID: 8163575273090295228, guid: 656cb9275c72b224eba3a316e2a41b25, type: 3}
+  - {fileID: 5176982881907247917, guid: 946d57298f46b4d4bb4b12e36db58d92, type: 3}
+  - {fileID: 6813395347835641094, guid: 00c3f8977b7ab9a42b8ffba4f2fc8cc0, type: 3}
+  - {fileID: 1340670198930100005, guid: 6214b26ff4d2aba499e19dd353d7476e, type: 3}
 --- !u!156049354 &1835064697
 Grid:
   m_ObjectHideFlags: 0

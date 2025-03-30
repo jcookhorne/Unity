@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     public UIDocument uiDocument;
     private Label m_FoodLabel;
     public TurnManager turnManager { get; private set; }
-    
+
+
+
+
 
     private void Awake()
     {
@@ -37,9 +40,13 @@ public class GameManager : MonoBehaviour
 
     void OnTurnHappen()
     {
-        m_FoodAmount -= 1;
-        m_FoodLabel.text = $"Food : {m_FoodAmount}";
-        Debug.Log("Current amount of food : " + m_FoodAmount);
+        ChangeFood(-1);
+    }
+
+    public void ChangeFood(int amount)
+    {
+        m_FoodAmount += amount;
+        m_FoodLabel.text = "Food : " + m_FoodAmount;
     }
 
 

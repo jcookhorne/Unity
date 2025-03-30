@@ -11,33 +11,42 @@ public class BoardManager : MonoBehaviour
     public Tile[] GroundTiles;
     public Tile[] WallTiles;
     private Grid m_Grid;
+    public int LeastFoodAmount;
+    public int MaxFoodAmount;
     public PlayerController Player;
-    public GameObject FoodPrefab;
+    public FoodObject[] FoodPrefab;
     private CellData[,] m_BoardData;
     private List<Vector2Int> m_EmptyCellsList;
 
     public class CellData
     {
         public bool Passable;
-        public GameObject ContainedObject;
+        public CellObject ContainedObject;
     }
 
 
     void GenerateFood()
     {
-        int foodCount = 5;
-        for (int i = 0; i < foodCount; ++i)
+        int randomFood = Random.Range(LeastFoodAmount, MaxFoodAmount);
+
+        for (int i = 0; i < randomFood; ++i)
         {
 
-            int randomIndex = Random.Range(0, m_EmptyCellsList.Count);
+            Debug.Log(randomFood);
+            int randomIndex = Random.Range(randomFood, m_EmptyCellsList.Count);
+            Debug.Log(randomIndex + " " + m_EmptyCellsList.Count);
             Vector2Int coord = m_EmptyCellsList[randomIndex];
+            Debug.Log(coord);
 
             m_EmptyCellsList.RemoveAt(randomIndex);
             CellData data = m_BoardData[coord.x, coord.y];
-            GameObject newFood = Instantiate(FoodPrefab);
+            FoodObject food = FoodPrefab[Random.Range(0, FoodPrefab.Length)];
+            Debug.Log(food);
+            FoodObject newFood = Instantiate(food);
             newFood.transform.position = CellToWorld(coord);
-            data.ContainedObject = newFood;      
-       }
+            data.ContainedObject = newFood;
+
+        }
     }
     
 
@@ -66,6 +75,7 @@ public class BoardManager : MonoBehaviour
                 {
                     tile = GroundTiles[Random.Range(0, GroundTiles.Length)];
                     m_BoardData[x, y].Passable = true;
+                    m_EmptyCellsList.Add(new Vector2Int(x, y));
     
                 }
  
