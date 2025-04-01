@@ -616,7 +616,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8e55ad040c20ea44a7397fdff4abb27, type: 2}
   - {fileID: 11400000, guid: aeb637580800b1c4a9589f778750457f, type: 2}
   - {fileID: 11400000, guid: aff4ea69f07fe7f45b8c3c6711594210, type: 2}
-  WallTiles:
+  BorderTiles:
   - {fileID: 11400000, guid: 0941390cc57e1084a957dfd346969f31, type: 2}
   - {fileID: 11400000, guid: 5a1d8fec849f82e4595c0a6858229a6b, type: 2}
   LeastFoodAmount: 3
@@ -627,6 +627,10 @@ MonoBehaviour:
   - {fileID: 5176982881907247917, guid: 946d57298f46b4d4bb4b12e36db58d92, type: 3}
   - {fileID: 6813395347835641094, guid: 00c3f8977b7ab9a42b8ffba4f2fc8cc0, type: 3}
   - {fileID: 1340670198930100005, guid: 6214b26ff4d2aba499e19dd353d7476e, type: 3}
+  ObstaclePrefab:
+  - {fileID: -7178800386252562481, guid: 2895c73bd24196f43821a706bb9efc35, type: 3}
+  - {fileID: -6527694941070460552, guid: 45c54d817f31e314d98659d48ff05320, type: 3}
+  - {fileID: 1542910190718072618, guid: 6cae72d294b4f974ead316c3b7160799, type: 3}
 --- !u!156049354 &1835064697
 Grid:
   m_ObjectHideFlags: 0

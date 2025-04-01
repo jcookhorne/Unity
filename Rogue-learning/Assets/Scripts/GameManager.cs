@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 
     }
 
+    // YOU ARE ON THE GAME MANAGER PART
+
     void OnTurnHappen()
     {
         ChangeFood(-1);
@@ -50,9 +52,5 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-  
-    }
+    
 }
