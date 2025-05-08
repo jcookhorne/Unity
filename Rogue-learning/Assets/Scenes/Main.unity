@@ -631,6 +631,7 @@ MonoBehaviour:
   - {fileID: -7178800386252562481, guid: 2895c73bd24196f43821a706bb9efc35, type: 3}
   - {fileID: -6527694941070460552, guid: 45c54d817f31e314d98659d48ff05320, type: 3}
   - {fileID: 1542910190718072618, guid: 6cae72d294b4f974ead316c3b7160799, type: 3}
+  ExitCellPrefab: {fileID: -95558111821383439, guid: 4ec69312089c29f41aba95671ddf9d1a, type: 3}
 --- !u!156049354 &1835064697
 Grid:
   m_ObjectHideFlags: 0
