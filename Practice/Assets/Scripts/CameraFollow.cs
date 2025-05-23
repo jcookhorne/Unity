@@ -1,44 +1,35 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public float sensX;
-    public float sensY;
 
-    public Transform orientation;
+    public CinemachineCamera cam;
 
-    float xRotation;
-    float yRotation;
-
-
-    GameObject player;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        CinemachineCore.CameraActivatedEvent.AddListener(OnCameraActivated);
 
+
+    }
+
+    void OnCameraActivated(ICinemachineCamera.ActivationEventParams evt)
+    {
+        if (evt.IncomingCamera == (ICinemachineCamera)cam)
+        {
+            Debug.Log("HELLO WORLD");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-
-        FollowPlayer();
     }
 
 
-    void FollowPlayer()
-    {
-        if (player){
-            float x = player.transform.position.x;
-            float y = player.transform.position.y; 
-            float z = player.transform.position.z;
-            gameObject.transform.position = new Vector3(x, y, z);
-
-        }
-    }
 
 
 }
