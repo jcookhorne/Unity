@@ -21,9 +21,11 @@ public class PlayerController : MonoBehaviour
     bool isJumpPressed;
 
     float rotationFactorPerFrame = 15.0f;
-    float runMultiplier = 3.0f;
+    public float walkMultiplier = 1.0f;
+    public float runMultiplier = 4.0f;
     float gravity = -9.0f;
     float groundedGravity = -0.5f;
+
 
 
 
@@ -33,6 +35,8 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerInput = new PlayerInput();
 
+        
+
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
@@ -41,6 +45,9 @@ public class PlayerController : MonoBehaviour
         playerInput.CharacterControls.Move.canceled += onMovementInput;
         // good for controllers for responsivness
         playerInput.CharacterControls.Move.performed += onMovementInput;
+
+        playerInput.CharacterControls.Jump.started += onJump;
+        playerInput.CharacterControls.Jump.canceled += onJump;
         playerInput.CharacterControls.Run.started += onRun;
         playerInput.CharacterControls.Run.canceled += onRun;
     }
@@ -101,13 +108,14 @@ public class PlayerController : MonoBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isJumping = animator.GetBool(isJumpingHash);
         bool isRunning = animator.GetBool(isRunningHash);
+        Debug.Log(characterController.isGrounded);
 
-
-        if(isJumpPressed && !isJumping)
-        {
+        if(isJumpPressed && !characterController.isGrounded)
+        { 
             animator.SetBool(isJumpingHash, true);
         }
-        else if(!isJumpPressed)
+        
+        if(characterController.isGrounded)
         {
             animator.SetBool(isJumpingHash, false);
         }
@@ -140,7 +148,9 @@ public class PlayerController : MonoBehaviour
     {
         currentMovementInput = context.ReadValue<Vector2>();
         currentMovement.x = currentMovementInput.x;
+        //+ walkMultiplier;
         currentMovement.z = currentMovementInput.y;
+            //+ walkMultiplier;
 
         currentRunMovement.x = currentMovementInput.x * runMultiplier;
         currentRunMovement.z = currentMovementInput.y * runMultiplier;
