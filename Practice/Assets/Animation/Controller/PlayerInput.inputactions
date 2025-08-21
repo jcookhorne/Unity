@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "a92b073a-e91c-431d-9351-556f45cdfdae",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -47,7 +56,7 @@
                 },
                 {
                     "name": "2D Vector",
-                    "id": "b3ca2d3d-622c-4d51-8eda-b985c33c6888",
+                    "id": "bc6a1f5e-d580-4e33-bc5b-4136bed02b77",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -58,7 +67,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "ddddf1b0-b866-4146-ab0e-6a278be5e2db",
+                    "id": "464cd631-e59c-4129-abd9-8323138c2448",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -69,7 +78,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "fbe4d652-33bf-4475-92af-cc9434069581",
+                    "id": "1a7446e4-e8af-411b-a3c8-e54118a076aa",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -80,7 +89,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "551c236a-fded-4e55-8cbd-d53b663e5a79",
+                    "id": "f9f9e795-5ae2-4c71-81ab-7d45a3ede2a4",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -91,7 +100,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "3a836220-3897-4a18-b3b7-d165b339fedb",
+                    "id": "c382231d-f1aa-40bb-8241-e766dff3954f",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -152,6 +161,56 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ae6e114-eb13-4f50-a8f4-ea4aeef3c5d7",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d480f327-95bb-4870-afe5-10ac343b53c9",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Mouse",
+            "id": "c24c0db6-95f3-4b03-82fd-825bad640ccc",
+            "actions": [
+                {
+                    "name": "MouseLook",
+                    "type": "PassThrough",
+                    "id": "7c888f06-a4b8-4754-8fb8-dbe8428a31b4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "520123ea-3f40-46b6-90d7-42b202592297",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseLook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

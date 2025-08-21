@@ -1,5 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,24 +14,30 @@ public class PlayerController : MonoBehaviour
     int isWalkingHash;
     int isRunningHash;
     int isJumpingHash;
+    int isStrafingLeftHash;
+    int isStrafingRightHash;
+    int isStrafingBackwardHash;
 
-    Vector2 currentMovementInput;
 
-    Vector3 currentMovement;
-    Vector3 currentRunMovement;
-
-    bool isMovementPressed;
-    bool isRunPressed;
-    bool isJumpPressed;
-
-    float rotationFactorPerFrame = 15.0f;
-    public float walkMultiplier = 1.0f;
-    public float runMultiplier = 4.0f;
+    float rotationFactorPerFrame = 5.0f;
+    public float walkMultiplier = 2.0f;
+    public float runMultiplier = 6.0f;
+    public float jumpForce = 5.0f;
     float gravity = -9.0f;
     float groundedGravity = -0.5f;
 
+    bool isMovementPressed;
+    //bool isRunPressed;
+    //bool isJumpPressed;
 
+    bool isJumpingup;
+    bool isMovingUp;
+    bool isMovingDown;
+    bool isMovingLeft;
+    bool isMovingRight;
+    bool isRunning;
 
+    Vector3 currentMovement;
 
     void Awake()
     {
@@ -35,136 +45,111 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         playerInput = new PlayerInput();
 
-        
-
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
+        isStrafingLeftHash = Animator.StringToHash("isStrafingLeft");
+        isStrafingBackwardHash = Animator.StringToHash("isStrafingBackward");
+        isStrafingRightHash = Animator.StringToHash("isStrafingRight");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+        handleRotation();
+        handleAnimation();
+        // Gravity logic
+        if (characterController.isGrounded)
+        {
+            currentMovement.y = groundedGravity;
+        }
+        else
+        {
+            currentMovement.y += gravity * Time.deltaTime;
+        }
+
+        // Apply movement and gravity
+        characterController.Move(currentMovement * Time.deltaTime * (isRunning ? runMultiplier : walkMultiplier));
+       
+ 
 
         playerInput.CharacterControls.Move.started += onMovementInput;
+        playerInput.CharacterControls.Move.started += onMovementInput;
         playerInput.CharacterControls.Move.canceled += onMovementInput;
-        // good for controllers for responsivness
+        // good for controllers because : This event is triggered continuously while the movement input is active.
+        //  As long as you hold down a movement key, the performed event fires every frame, providing updated
+        //  input values.
         playerInput.CharacterControls.Move.performed += onMovementInput;
 
         playerInput.CharacterControls.Jump.started += onJump;
         playerInput.CharacterControls.Jump.canceled += onJump;
         playerInput.CharacterControls.Run.started += onRun;
         playerInput.CharacterControls.Run.canceled += onRun;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        handleGravity();
-        handleRotation();
-        handleAnimation();
-        if (isRunPressed)
-        {
-            characterController.Move(currentRunMovement * Time.deltaTime);
-        }
-        else
-        {
-            characterController.Move(currentMovement * Time.deltaTime);
-        }
-       
     }
 
     void handleRotation()
     {
-        Vector3 positionToLookAt;
-        // the change in position our character should point to
-        positionToLookAt.x = currentMovement.x;
-        positionToLookAt.y = 0.0f;
-        positionToLookAt.z = currentMovement.z;
+        //Vector3 positionToLookAt;
+        //// the change in position our character should point to
+        //positionToLookAt.x = currentMovement.x;
+        //positionToLookAt.y = 0.0f;
+        //positionToLookAt.z = currentMovement.z;
 
         // the current rotation of our character
         Quaternion currentRotation = transform.rotation;
 
-        if (isMovementPressed)
-        {
-            // creates a new rotation based on where the plater is currentl pressing
-            Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
-            transform.rotation =  Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
+        //I want this to rotate with the mouse not the keys
+        //if (isMovementPressed)
+        //{
+        //    // creates a new rotation based on where the plater is currentl pressing
+        //    Quaternion targetRotation = Quaternion.LookRotation(positionToLookAt);
+        //    transform.rotation =  Quaternion.Slerp(currentRotation, targetRotation, rotationFactorPerFrame * Time.deltaTime);
 
-        }
+        //}
     }
-
-
-    void handleGravity()
+    void handleAnimation()
     {
-        if (characterController.isGrounded)
-        {
-            currentMovement.y = groundedGravity;
-            currentRunMovement.y = groundedGravity;
+        animator.SetBool(isStrafingLeftHash, isMovingLeft);
+        animator.SetBool(isStrafingRightHash, isMovingRight);
+        animator.SetBool(isStrafingBackwardHash, isMovingDown);
+        animator.SetBool(isWalkingHash, isMovingUp);
 
-        } else
-        {
-            currentMovement.y += gravity;
-            currentRunMovement.y += gravity;
-        }
-    }
-    void handleAnimation() 
-    {
-        bool isWalking = animator.GetBool(isWalkingHash);
-        bool isJumping = animator.GetBool(isJumpingHash);
-        bool isRunning = animator.GetBool(isRunningHash);
-        Debug.Log(characterController.isGrounded);
+        animator.SetBool(isJumpingHash, isJumpingup);
+        animator.SetBool(isRunningHash, isRunning);
 
-        if(isJumpPressed && !characterController.isGrounded)
-        { 
-            animator.SetBool(isJumpingHash, true);
-        }
-        
-        if(characterController.isGrounded)
-        {
-            animator.SetBool(isJumpingHash, false);
-        }
-
-        if (isMovementPressed && !isWalking)
-        {
-            animator.SetBool(isWalkingHash, true);
-
-        }
-        else if (!isMovementPressed && isWalking)
-        {
-            animator.SetBool(isWalkingHash, false);
-        }
-
-        if ((isMovementPressed && isRunPressed) && !isRunning)
-        {
-            animator.SetBool(isRunningHash, true);
-        }
-        else if ((!isMovementPressed || !isRunPressed) && isRunning)
-        {
-            animator.SetBool(isRunningHash, false);
-        }
+        //}
     }
     void onRun(InputAction.CallbackContext context)
     {
-        isRunPressed = context.ReadValueAsButton();
+        // Fix: Use a boolean to check if the run action is triggered instead of trying to read a Button type.
+        isRunning = context.ReadValueAsButton();
+        characterController.Move(currentMovement * Time.deltaTime * (isRunning ? runMultiplier : walkMultiplier));
+        Debug.Log("Is Running: " + isRunning);
     }
-
     void onMovementInput(InputAction.CallbackContext context)
     {
-        currentMovementInput = context.ReadValue<Vector2>();
-        currentMovement.x = currentMovementInput.x;
-        //+ walkMultiplier;
-        currentMovement.z = currentMovementInput.y;
-            //+ walkMultiplier;
-
-        currentRunMovement.x = currentMovementInput.x * runMultiplier;
-        currentRunMovement.z = currentMovementInput.y * runMultiplier;
-
-        isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
+        Vector2 input = context.ReadValue<Vector2>();
+        currentMovement.x = input.x;
+        currentMovement.z = input.y;
+        isMovingUp = input.y > 0;
+        isMovingDown = input.y < 0;
+        isMovingLeft = input.x < 0;
+        isMovingRight = input.x > 0;
 
     }
-    
+
     void onJump(InputAction.CallbackContext context)
     {
-        isJumpPressed = context.ReadValueAsButton();
+        isJumpingup = context.ReadValueAsButton();
+        if(isJumpingup)
+        {
+            currentMovement.y = jumpForce;
+       
+        }
+        Debug.Log("Current Jump isJumpingup: " + isJumpingup);
     }
-
-
 
 
     private void OnEnable()
